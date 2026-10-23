@@ -31,3 +31,15 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Spring Boot / Maven
+target/
+*.class
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+
+# Environment files
+.env
