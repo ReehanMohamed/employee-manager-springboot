@@ -45,4 +45,7 @@ public class EmployeeService {
     public Employee getEmployeeByFullName(String fullName) {
         return employeeRepository.findByFullName(fullName);
     }
+    public boolean emailExistsForOtherEmployee(String email, Long id) {
+    return employeeRepository.existsByEmailAndIdNot(email, id);
+}
 }

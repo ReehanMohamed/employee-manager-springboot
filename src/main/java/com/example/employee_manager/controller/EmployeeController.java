@@ -22,7 +22,7 @@ public class EmployeeController {
     }
 
     // 1. READ: Display all employees
-    @GetMapping("/")
+    @GetMapping({"/","/employees"})
     public String listEmployees(Model model) {
         model.addAttribute("employees",
                 employeeService.getAllEmployees());
@@ -45,11 +45,19 @@ public class EmployeeController {
             BindingResult result,
             Model model) {
 
-        if (result.hasErrors()) {
-            return "employee-form";
-        }
+        if (employeeService.emailExists(employee.getEmail())) {
+    result.rejectValue(
+        "email",
+        "duplicate",
+        "This email address is already registered."
+    );
+}
 
-        employeeService.saveEmployee(employee);
+if (result.hasErrors()) {
+    return "employee-form";
+}
+
+employeeService.saveEmployee(employee);
 
         return "redirect:/";
     }
@@ -72,7 +80,7 @@ public class EmployeeController {
     }
 
     // 5. DELETE: Delete employee
-    @GetMapping("/employees/delete/{id}")
+    @PostMapping("/employees/delete/{id}")
     public String deleteEmployee(@PathVariable Long id) {
 
         employeeService.deleteEmployee(id);
