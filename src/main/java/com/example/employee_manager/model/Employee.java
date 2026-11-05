@@ -30,6 +30,7 @@ public class Employee {
     @NotBlank(message = "Email is required")
     @Email(message = "Enter a valid email address")
     @Column(unique = true)
+    private String email;
 
     @NotBlank(message = "Job title is required")
     private String jobTitle;
